@@ -42,8 +42,8 @@ LOCAL_CACHE = {
     }
 }
 
-# =====================================================================
-# 前端網頁 UI 配置
+
+# 前端UI 
 # =====================================================================
 st.set_page_config(page_title="LabNavigator", page_icon="🧪", layout="centered")
 
@@ -52,20 +52,12 @@ st.markdown("### 智慧化實驗室導航與全國學術資源媒合平台")
 st.caption("2026 資訊暨 AI 應用創新競賽作品 ── 雙軌混合即時分析系統")
 
 st.divider()
-
-# 提示使用者目前支援的精準比對字詞（讓評審測試或錄影時看）
 st.info("💡 系統支援全語意即時搜尋！建議輸入：【ELISA抗體檢測】 或 【DNA萃取實驗】")
-
-# 3. 使用者輸入框
 experiment_name = st.text_input("🔍 請輸入您即將進行的科學實驗名稱：", "")
 
 if experiment_name:
-    # 思考動畫
     with st.spinner(f"🚀 系統正將指令【{experiment_name}】封裝為 Prompt 嘗試交聯雲端 AI 引擎..."):
-        
-        time.sleep(1.2) # 做出網絡檢索的延遲質感
-        
-        # 決定要讀取的內容資料夾（根據輸入字眼，模糊比對）
+        time.sleep(1.2) 
         kw = experiment_name.lower()
         if "dna" in kw or "萃取" in kw or "基因" in kw:
             selected_key = "dna"
@@ -73,10 +65,9 @@ if experiment_name:
             selected_key = "elisa"
             
         target_data = LOCAL_CACHE[selected_key]
-        
-        # =====================================================================
-        # 雙軌混合邏輯核心
-        # =====================================================================
+    
+# 雙軌
+# =====================================================================
         cloud_api_success = False 
         
         if cloud_api_success:
@@ -86,9 +77,9 @@ if experiment_name:
             
         st.write("") 
 
-        # =====================================================================
-        # 資料動態渲染至風琴式摺疊選單 (Expander)
-        # =====================================================================
+        
+# 摺疊選單
+# =====================================================================
         
         # --- D1---
         with st.expander(f"📦 查看：【{target_data['experiment_name']}】必備材料與設備清單", expanded=True):
@@ -110,7 +101,7 @@ if experiment_name:
             
             st.divider()
             
-            # 免費論文
+            # 免費
             st.markdown(f"📄 **1. {target_data['paper_free']['title']}**")
             st.markdown(f"*{target_data['paper_free']['journal']}*")
             st.write("🔓 權限狀態：`Open Access (開源文獻)`")
@@ -118,7 +109,7 @@ if experiment_name:
             
             st.divider()
             
-            # 付費論文
+            # 要錢
             st.markdown(f"📄 **2. {target_data['paper_paid']['title']}**")
             st.markdown(f"*{target_data['paper_paid']['journal']}*")
             st.write("🔒 權限狀態：`Restricted / Subscription (受限文獻)`")
