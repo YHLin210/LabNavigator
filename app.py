@@ -104,7 +104,7 @@ if experiment_name:
         st.write("") 
 
  # 風琴式摺疊選單
-        with st.expander(f"📦 查看：【{ai_result['experiment_name']}'] 必備材料與設備清單", expanded=True):
+        with st.expander(f"📦 查看：【{ai_result['experiment_name']}] 必備材料與設備清單", expanded=True):
             st.markdown("#### 📋 核心耗材與物資整備需求")
             for item in ai_result["materials"]:
                 st.markdown(f"* {item}")
